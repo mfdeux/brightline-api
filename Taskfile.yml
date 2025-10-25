@@ -1,0 +1,15 @@
+version: "3"
+
+tasks:
+  build:
+    cmds:
+      - docker build --platform linux/amd64 -f Dockerfile.server -t gcr.io/eintel-435822/brightline-api:latest .
+    silent: true
+  push:
+    cmds:
+      - docker push gcr.io/eintel-435822/brightline-api:latest
+    silent: true
+  deploy:
+    cmds:
+      - gcloud run deploy brightline-api --allow-unauthenticated --region=us-east1 --image gcr.io/eintel-435822/brightline-api:latest --platform managed
+    silent: true
